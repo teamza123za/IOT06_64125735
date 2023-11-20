@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mqtt/5.2.2/mqtt.min.js"
+        integrity="sha512-I8gBERqrEkyDqbjHj3aymzBVIPFs85vGSzy26+1P5weHzFp8vfJ8dARJz51n3oQ80DTdYn8MbhUiz5UAW2rMxw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <title>LED Control</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #ledButton {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>LED Control</h1>
+    <button type="button" id="ledButton" onclick="toggleLED()">Toggle LED</button>
+
+    <p id="ledStatus">LED Status: OFF</p>
+
+    <script>
+        const client = mqtt.connect("mqtt://192.168.43.167:8888");
+        let isLedOn = false;
+
+        client.on("connect", () => {
+            client.subscribe("led", (err) => {
+                if (!err) {
+                    client.publish("led", isLedOn ? "on" : "off");
+                }
+            });
+        });
+
+        client.on("message", (topic, message) => {
+            console.log(message.toString());
+            updateLedStatus(message.toString());
+        });
+
+        function toggleLED() {
+            isLedOn = !isLedOn;
+            client.publish("led", isLedOn ? "on" : "off");
+            updateLedStatus(isLedOn ? "on" : "off");
+        }
+
+        function updateLedStatus(status) {
+            var button = document.getElementById('ledButton');
+            button.innerText = 'Toggle LED (' + (isLedOn ? 'ON' : 'OFF') + ')';
+            var ledStatusElement = document.getElementById('ledStatus');
+            ledStatusElement.innerText = 'LED Status: ' + status.toUpperCase();
+        }
+
+    </script>
+</body>
+
+</html>

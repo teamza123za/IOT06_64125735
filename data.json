@@ -1,0 +1,34 @@
+{
+  "Sensor": [
+    {
+      "id": 1,
+      "humidity": 23,
+      "temperature": 16,
+      "IP Address": "192.168.43.167"
+    },
+    {
+      "id": "f155dccd-8d48-4a4b-af45-d8e2124b8ef9",
+      "humidity": 16,
+      "temperature": 24,
+      "IP Address": "192.168.43.167"
+    },
+    {
+      "id": "5989a45b-3787-4faf-95c6-b1901af6611e",
+      "humidity": 61,
+      "temperature": 25.60000038,
+      "IP Address": "192.168.53.232"
+    },
+    {
+      "id": "09cbafea-eaff-4f5c-84ff-6630d6c3b9bb",
+      "humidity": 61,
+      "temperature": 25.60000038,
+      "IP Address": "192.168.53.232"
+    },
+    {
+      "id": "03ecf381-a918-4a84-aebc-bff5c4f2bfc8",
+      "humidity": 61,
+      "temperature": 25.60000038,
+      "IP Address": "192.168.53.232"
+    }
+  ]
+}
